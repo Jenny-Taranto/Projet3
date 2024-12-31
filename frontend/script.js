@@ -15,6 +15,7 @@ async function fetchworks() {
     }
   }
 
+
 // Génération de la liste des travaux //
 
 function genererTravaux(works){
@@ -23,12 +24,12 @@ function genererTravaux(works){
         const travail = works[i];
 
         // Récupération de l'élément "parent" //
-        const sectionTravaux = document.querySelector("#portfolio div");
+        const sectionTravaux = document.getElementById("gallery");
 
         // Création d'une balise dédiée à un travail //
         const travailElement = document.createElement("figure");
 
-        // Création des balises pour chaque travail //
+        // Création des balises de contenu pour chaque travail //
         const imageTravail = document.createElement("img");
         imageTravail.src = travail.imageUrl;
         imageTravail.alt = travail.title;
@@ -46,3 +47,22 @@ function genererTravaux(works){
 }
 
 fetchworks();
+
+
+//Génération des filtres //
+
+const barreDesFiltres = document.getElementById("filterbar");
+
+const boutonFiltre = [
+  { id: 1, text: "Tous"},
+  { id: 2, text: "Objets"},
+  { id: 3, text: "Appartements"},
+  { id: 4, text: "Hotels & restaurants"},
+]
+
+for (const bouton of boutonFiltre) {
+  const btn = document.createElement("button");
+  btn.textContent = bouton.text;
+  btn.setAttribute("data-id", bouton.id);
+  barreDesFiltres.appendChild(btn);
+}
