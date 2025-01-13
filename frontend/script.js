@@ -1,94 +1,64 @@
-// Requête serveur pour récupérer les catégories //
+// Récupération des données
+async function recupererDonnees() {
+  const reponseTravaux = await fetch("http://localhost:5678/api/works");
+  const travaux = await reponseTravaux.json();
 
-async function fetchcategories() {
-  try {
-    const response = await fetch("http://localhost:5678/api/categories");
+  const reponseCategories = await fetch("http://localhost:5678/api/categories");
+  const categories = await reponseCategories.json();
 
-    if (!response.ok) {
-      throw new Error(`Erreur HTTP : ${response.status}`);
-    }
+  afficherTravaux(travaux);
+  genererCategories(categories, travaux); // On passe aussi les travaux pour filtrer
+}
 
-    const categories = await response.json(); // Les données récupérées
-    genererCategories(categories); // Appel de la fonction pour afficher les données
-  } catch (error) {
-    console.error("Erreur lors de la récupération des données :", error);
+// Génération des travaux
+function afficherTravaux(travaux) {
+  const gallery = document.getElementById('gallery');
+  gallery.innerHTML = ''; // Réinitialise la galerie avant d'ajouter les nouveaux travaux
+
+  for (let i = 0; i < travaux.length; i++) {
+    const elementTravail = document.createElement('figure');
+    const imgTravail = document.createElement('img');
+    imgTravail.src = travaux[i].imageUrl;
+
+    const nomTravail = document.createElement('p');
+    nomTravail.innerText = travaux[i].title;
+
+    gallery.appendChild(elementTravail);
+    elementTravail.appendChild(imgTravail);
+    elementTravail.appendChild(nomTravail);
   }
 }
 
-// Requête serveur pour récupérer les "travaux" //
+// Génération des catégories
+function genererCategories(categories, travaux) {
+  const barreDesCategories = document.getElementById('filterbar');
+  barreDesCategories.innerHTML = ''; // Réinitialise la barre des catégories
 
-async function fetchworks() {
-    try {
-      const response = await fetch("http://localhost:5678/api/works");
-  
-      if (!response.ok) {
-        throw new Error(`Erreur HTTP : ${response.status}`);
-      }
-  
-      const works = await response.json(); // Les données récupérées
-      genererTravaux(works); // Appel de la fonction pour afficher les données
-    } catch (error) {
-      console.error("Erreur lors de la récupération des données :", error);
-    }
+  // Bouton "Tous"
+  const btnTous = document.createElement('button');
+  btnTous.innerText = 'Tous';
+  btnTous.dataset.id = 'Tous';
+  barreDesCategories.appendChild(btnTous);
+
+  // Ajout d'un event listener pour afficher tous les travaux
+  btnTous.addEventListener('click', () => afficherTravaux(travaux));
+
+  // Boutons pour chaque catégorie
+  for (let i = 0; i < categories.length; i++) {
+    const btn = document.createElement('button');
+    btn.innerText = categories[i].name;
+    btn.dataset.id = categories[i].id; // Utilise l'ID unique de la catégorie
+
+    // Ajout d'un event listener pour filtrer les travaux
+    btn.addEventListener('click', () => {
+      const travauxFiltres = travaux.filter(
+        (travail) => travail.categoryId === categories[i].id
+      );
+      afficherTravaux(travauxFiltres);
+    });
+
+    barreDesCategories.appendChild(btn);
   }
-
-// Génération des catégories //
-
-function genererCategories(categories) {
-  const barreDesFiltres = document.getElementById("filterbar");
-
-    // Création du bouton "Tous" //
-    const btnFiltreTous = document.createElement("button");
-    btnFiltreTous.textContent = "Tous";
-    barreDesFiltres.appendChild(btnFiltreTous);
-
-    // Génération des boutons pour chaque catégorie //
-    for (let i = 0; i < categories.length; i++) {
-
-    const categorie = categories[i];
-
-    // Création des autres boutons //
-
-    const btnFiltre = document.createElement("button");
-    btnFiltre.textContent = categorie.name;
-
-    barreDesFiltres.appendChild(btnFiltre);
-    }
-  };
-
-
-fetchcategories();
-
-// Génération de la liste des travaux //
-
-function genererTravaux(works){
-    for (let i = 0; i < works.length; i++) {
-
-        const travail = works[i];
-
-        // Récupération de l'élément "parent" //
-        const sectionTravaux = document.getElementById("gallery");
-
-        // Création d'une balise dédiée à un travail //
-        const travailElement = document.createElement("figure");
-
-        // Création des balises de contenu pour chaque travail //
-        const imageTravail = document.createElement("img");
-        imageTravail.src = travail.imageUrl;
-        imageTravail.alt = travail.title;
-
-        const nomTravail = document.createElement("figcaption");
-        nomTravail.textContent = travail.title;
-        
-        // Ajout de l'image et du titre dans la balise figure //
-        travailElement.appendChild(imageTravail);
-        travailElement.appendChild(nomTravail);
-
-        // Ajout de la figure dans la section "parent" //
-        sectionTravaux.appendChild(travailElement);
-    }
 }
 
-fetchworks();
-
-
+recupererDonnees();
