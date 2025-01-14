@@ -3,7 +3,11 @@
 <head>
   <meta charset="utf-8">
   <title>Titre de la page</title>
-  <link rel="stylesheet" href="assets/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/login.css">
+  <script src="login.js"></script>
 </head>
 <body>
     <header>
@@ -12,19 +16,27 @@
             <ul>
                 <li>projets</li>
                 <li>contact</li>
-                <li>login</li>
+                <li><b>login</b></li>
                 <li><img src="assets/icons/instagram.png" alt="Instagram"></li>
             </ul>
         </nav>
     </header>
 <main>
-    <h1>Log In</h1>
-    <p>E-mail</p>
-    <input type="text" placeholder="Entrez votre e-mail">
-    <p>Mot de passe</p>
-    <input type="password" placeholder="Entrez votre mot de passe">
-    <button><span>Se connecter</span></button>
-    <a href="#">Mot de passe oublié</a>
+    <h2>Log In</h2 >
+        <form action="#" method="post">
+            <div class="form-group">
+                <label for="email">E-mail :</label>
+                <input type="email" id="email">
+            </div>
+            <div class="form-group">
+                <label for="password">Mot de passe :</label>
+                <input type="password" id="password">
+            </div>
+            <div class="connexion">
+                <input type="submit" value="Se connecter" class="btnConnexion">
+                <a href="#">Mot de passe oublié</a>
+            </div>
+        </form>
 </main>
 <footer>
     <a href="#">Mentions légales</a>
