@@ -1,4 +1,5 @@
-//Envoi des nouvelles données d'identifiants
+document.addEventListener("DOMContentLoaded", function () {
+    //Envoi des nouvelles données d'identifiants
     //On écoute l'évènement submit sur le formulaire et on empêche le rechargement de la page
     const logInForm = document.getElementById("logInForm")
     logInForm.addEventListener('submit', async (event) => {
@@ -27,7 +28,8 @@
         if (response.ok) {
             const result = await response.json();
             console.log('Connexion réussie :', result);
-            window.location.href = "http://127.0.0.1:5500/FrontEnd/index.html"
+            sessionStorage.setItem("token", result.token)
+            window.location.href = "/FrontEnd/index.html"
         } else {
             const errorData = await response.json();
             console.error('Erreur lors de la connexion :', errorData.message);
@@ -38,3 +40,4 @@
         alert("Une erreur réseau s'est produite. Veuillez réessayer.");
         }
     });
+})
