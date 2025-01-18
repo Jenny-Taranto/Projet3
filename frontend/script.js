@@ -62,3 +62,5 @@ function genererCategories(categories, travaux) {
 }
 
 recupererDonnees();
+
+console.log("token", sessionStorage.getItem ("token"))
