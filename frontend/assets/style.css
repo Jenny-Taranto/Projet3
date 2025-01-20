@@ -61,10 +61,28 @@ body {
 	font-size: 14px;
 }
 
-header {
+.header {
 	display: flex;
 	justify-content: space-between;
 	margin: 50px 0
+}
+
+.mode-edition {
+	height: 60px;
+	width: 100%;
+	background-color:black;
+	color: white;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-family: 'Work Sans';
+	font-size: 16px;
+	text-decoration: none;
+	gap: 10px;
+}
+
+.fa-pen-to-square {
+	color: white
 }
 
 section {
@@ -101,13 +119,26 @@ nav ul {
 }
 
 nav li {
-	padding: 0 10px;
+	padding: 0 20px;
 	font-size: 1.2em;
+}
+
+nav ul a {
+	text-decoration: none;
+	color:black;
+}
+
+nav ul a:hover {
+	color: #B1663C;
 }
 
 li:hover {
 	
 	color: #B1663C;
+}
+
+.only-admin {
+	display:none;
 }
 
 #introduction {
@@ -140,6 +171,23 @@ li:hover {
 #portfolio h2 {
 	text-align: center;
 	margin-bottom: 1em;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+#portfolio h2 span {
+	color: black;
+	font-family: 'Work Sans';
+	font-size: 14px;
+	font-weight: 500;
+	display:none
+}
+
+#portfolio h2 span i {
+	color: black;
+	padding-left: 20px;
+	padding-right: 10px;
 }
 
 .filterbar {
@@ -183,7 +231,7 @@ button:focus {
 
 #contact {
 	width: 50%;
-margin: auto;
+	margin: auto;
 }
 
 #contact > * {
@@ -233,3 +281,50 @@ footer nav ul {
 	justify-content: flex-end;
 }
 
+.modal {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position:fixed;
+	top: 0;
+	left: 0;
+	width : 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.5);
+}
+
+.modal-wrapper {
+	background-color: white;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width : 630px;
+	height: 670px;
+	gap: 30px;
+	border-radius: 10px;
+}
+
+h3 {
+	font-family: 'Work Sans';
+	font-weight: 500;
+	font-size: 26px;
+}
+
+hr {
+	width: 70%;
+}
+
+.btn-modal-add {
+	height: 38px;
+	background-color: #1D6154;
+	border-color:#1D6154;
+	border-style: solid;
+	border-width: 1px;
+	border-radius: 60px;
+	font-family: "Syne";
+	font-size: 14px;
+	font-weight: 700;
+	color:white;
+	padding: 0 20px 0 20px;
+	min-width: 100px;
+}
