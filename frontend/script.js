@@ -64,3 +64,14 @@ function genererCategories(categories, travaux) {
 recupererDonnees();
 
 console.log("token", sessionStorage.getItem ("token"))
+
+//Lancement mode admin
+document.addEventListener('DOMContentLoaded', function() {
+  //Si token présent alors afficher admin-mode
+  if(sessionStorage.getItem('token') != null) {
+    const adminModeHeader =  document.querySelector('.modal')
+    adminModeHeader.removeAttribute('aria-hidden')
+    adminModeHeader.setAttribute('aria-modal', 'false')
+    document.querySelector('header i').removeAttribute('style')
+    //Même chose à faire pour le modifier du titre Mes projets
+  }})
