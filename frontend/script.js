@@ -65,13 +65,43 @@ recupererDonnees();
 
 console.log("token", sessionStorage.getItem ("token"))
 
-//Lancement mode admin
+//Se connecter et entrer en mode édition
 document.addEventListener('DOMContentLoaded', function() {
   //Si token présent alors afficher admin-mode
   if(sessionStorage.getItem('token') != null) {
-    const adminModeHeader =  document.querySelector('.modal')
-    adminModeHeader.removeAttribute('aria-hidden')
-    adminModeHeader.setAttribute('aria-modal', 'false')
-    document.querySelector('header i').removeAttribute('style')
+    const adminModeHeader = document.querySelector('.mode-edition')
+    adminModeHeader.removeAttribute('style')
     //Même chose à faire pour le modifier du titre Mes projets
+    const adminModeTitle = document.getElementById('span-icone-h2')
+    adminModeTitle.removeAttribute('style')
+    //Remplacer le lien login par logout
+    const login = document.getElementById('login')
+    login.setAttribute('style', 'display:none')
+    const logout = document.getElementById('logout')
+    logout.removeAttribute('style')
   }})
+
+//Se déconnecter
+document.addEventListener("DOMContentLoaded", function () {
+  //On supprime le token du sessionStorage
+  document.getElementById('logout').addEventListener('click', function(event) {
+    sessionStorage.removeItem('token');
+
+})})
+
+
+//Ouvrir la modale
+document.addEventListener('DOMContentLoaded', function () {
+  // Sélection du lien "mode-edition"
+  const modeEditionLink = document.querySelector('.mode-edition');
+
+  // Sélection de la modale
+  const modal = document.getElementById('modal');
+
+  // Evenement
+  modeEditionLink.addEventListener('click', function (event) {
+    event.preventDefault(); // Empêche le comportement par défaut du lien
+    modal.removeAttribute('style')
+    modal.setAttribute('aria-hidden', 'false'); // Met à jour l'accessibilité
+  });
+  });

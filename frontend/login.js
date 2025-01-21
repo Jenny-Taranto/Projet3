@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", function () {
         } else {
             const errorData = await response.json();
             console.error('Erreur lors de la connexion :', errorData.message);
-            alert(`Erreur : ${errorData.message || "Connexion échouée"}`);
+            alert('Erreur dans l’identifiant ou le mot de passe');
         }
     } catch (error) {
         console.error('Erreur réseau ou serveur :', error);
