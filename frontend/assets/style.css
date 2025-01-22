@@ -104,6 +104,10 @@ body {
 	border-radius: 10px;
 }
 
+.modal-wrapper h3 {
+	color: black
+}
+
 hr {
 	width: 70%;
 }
@@ -217,6 +221,10 @@ li:hover {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+}
+
+#portfolio h2 a {
+		text-decoration: none;
 }
 
 #portfolio h2 span {

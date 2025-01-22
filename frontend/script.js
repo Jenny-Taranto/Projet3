@@ -65,7 +65,12 @@ recupererDonnees();
 
 console.log("token", sessionStorage.getItem ("token"))
 
+logIn();
+logOut();
+openModal();
+
 //Se connecter et entrer en mode édition
+function logIn() {
 document.addEventListener('DOMContentLoaded', function() {
   //Si token présent alors afficher admin-mode
   if(sessionStorage.getItem('token') != null) {
@@ -80,28 +85,58 @@ document.addEventListener('DOMContentLoaded', function() {
     const logout = document.getElementById('logout')
     logout.removeAttribute('style')
   }})
+}
 
 //Se déconnecter
+function logOut() {
 document.addEventListener("DOMContentLoaded", function () {
   //On supprime le token du sessionStorage
   document.getElementById('logout').addEventListener('click', function(event) {
     sessionStorage.removeItem('token');
 
 })})
-
+}
 
 //Ouvrir la modale
-document.addEventListener('DOMContentLoaded', function () {
-  // Sélection du lien "mode-edition"
-  const modeEditionLink = document.querySelector('.mode-edition');
+function openModal() {
+  document.addEventListener('DOMContentLoaded', function () {
+    // Sélection du lien "mode-edition" et du lien 'modifier'
+    const modeEditionLink = document.querySelector('.mode-edition');
+    const modeModifier = document.getElementById('modifier');
 
-  // Sélection de la modale
-  const modal = document.getElementById('modal');
+    // Sélection de la modale
+    const modal = document.getElementById('modal');
 
-  // Evenement
-  modeEditionLink.addEventListener('click', function (event) {
-    event.preventDefault(); // Empêche le comportement par défaut du lien
-    modal.removeAttribute('style')
-    modal.setAttribute('aria-hidden', 'false'); // Met à jour l'accessibilité
+    // Gestion des évènements
+    modeEditionLink.addEventListener('click', function (event) {
+      event.preventDefault(); // Empêche le comportement par défaut du lien
+      modal.setAttribute('style', 'block')
+      modal.setAttribute('aria-hidden', 'false'); // Met à jour l'accessibilité
+      modal.setAttribute('aria-modal', 'true')
+    });
+
+    modeModifier.addEventListener('click', function (event) {
+      event.preventDefault();
+      modal.setAttribute('style', 'block')
+      modal.setAttribute('aria-hidden', 'false');
+      modal.setAttribute('aria-modal', 'true')
+    });
+
+    modal.addEventListener('click', function (event) {
+      if (event.target === modal) {
+      closeModal();
+      }
+      });
+
   });
-  });
+}
+  function closeModal() {
+    //Fermer la modale
+    const close = document.getElementById('modal')
+    close.addEventListener('click', function (event) {
+      event.preventDefault();
+      modal.setAttribute('style', 'display:none')
+      modal.setAttribute('aria-hidden', 'true');
+      modal.removeAttribute('aria-modal')
+    })
+  }
