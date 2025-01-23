@@ -101,47 +101,48 @@ document.addEventListener("DOMContentLoaded", function () {
 function openModal() {
   document.addEventListener('DOMContentLoaded', function () {
     // Sélection du lien "mode-edition" et du lien 'modifier'
-    const modeEditionLink = document.querySelector('.mode-edition');
     const modeModifier = document.getElementById('modifier');
 
     // Sélection de la modale
     const modal = document.getElementById('modal');
 
     // Gestion des évènements
-    modeEditionLink.addEventListener('click', function (event) {
-      event.preventDefault(); // Empêche le comportement par défaut du lien
-      modal.removeAttribute('style')
-      modal.setAttribute('aria-hidden', 'false'); // Met à jour l'accessibilité
-      modal.setAttribute('aria-modal', 'true')
-    });
-
     modeModifier.addEventListener('click', function (event) {
       event.preventDefault();
       modal.removeAttribute('style')
       modal.setAttribute('aria-hidden', 'false');
       modal.setAttribute('aria-modal', 'true')
+
+    //Afficher les travaux dans la modale
+    travauxModal()
+    })
     });
 
+    //Fermer la modale
     modal.addEventListener('click', function (event) {
-      console.log(event.target)
       if (event.target === modal) {
         event.stopPropagation()
         modal.setAttribute('style', 'display:none')
         modal.setAttribute('aria-hidden', 'true');
         modal.removeAttribute('aria-modal')
-        console.log("toto2")
       }
       });
+  }
 
-  });
-}
-  function closeModal() {
-    //Fermer la modale
-    console.log("toto")
-    const close = document.getElementById('modal')
-      modal.setAttribute('style', 'display:none')
-      modal.setAttribute('aria-hidden', 'true');
-      modal.removeAttribute('aria-modal')
-      console.log("toto2")
-    }
+
+//Fonction qui affiche les travaux dans la modale
+  async function travauxModal() {
+    const reponseTravaux = await fetch("http://localhost:5678/api/works");
+    const travauxModal = await reponseTravaux.json();
+    console.log(travauxModal)
+
+    const modalContent = document.getElementById('modal-content');
+    modalContent.innerHTML = ''; // Réinitialise la galerie avant d'ajouter les nouveaux travaux
   
+    for (let i = 0; i < travauxModal.length; i++) {
+      const elementModal = document.createElement('img');
+      elementModal.src = travauxModal[i].imageUrl;
+  
+      modalContent.appendChild(elementModal);
+    }
+  }

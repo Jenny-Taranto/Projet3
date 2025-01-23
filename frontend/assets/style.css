@@ -99,17 +99,37 @@ body {
 	flex-direction: column;
 	align-items: center;
 	width : 630px;
-	height: 670px;
-	gap: 30px;
+	height: auto;
+	gap: 40px;
 	border-radius: 10px;
+	padding: 40px 0 40px 0;
 }
 
 .modal-wrapper h3 {
 	color: black
 }
 
+.fa-xmark {
+	font-size: 24px;
+	align-self:flex-end
+}
+
+.modal-content {
+	width: auto;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+	grid-column-gap: 10px;
+	grid-row-gap: 30px;
+	padding: 0 120px 0 120px;
+}
+
+.modal-content img {
+	width: 100%;
+}
+
 hr {
-	width: 70%;
+	width: 100%;
+	margin: 0
 }
 
 .btn-modal-add {
