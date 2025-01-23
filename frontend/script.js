@@ -110,21 +110,26 @@ function openModal() {
     // Gestion des évènements
     modeEditionLink.addEventListener('click', function (event) {
       event.preventDefault(); // Empêche le comportement par défaut du lien
-      modal.setAttribute('style', 'block')
+      modal.removeAttribute('style')
       modal.setAttribute('aria-hidden', 'false'); // Met à jour l'accessibilité
       modal.setAttribute('aria-modal', 'true')
     });
 
     modeModifier.addEventListener('click', function (event) {
       event.preventDefault();
-      modal.setAttribute('style', 'block')
+      modal.removeAttribute('style')
       modal.setAttribute('aria-hidden', 'false');
       modal.setAttribute('aria-modal', 'true')
     });
 
     modal.addEventListener('click', function (event) {
+      console.log(event.target)
       if (event.target === modal) {
-      closeModal();
+        event.stopPropagation()
+        modal.setAttribute('style', 'display:none')
+        modal.setAttribute('aria-hidden', 'true');
+        modal.removeAttribute('aria-modal')
+        console.log("toto2")
       }
       });
 
@@ -132,11 +137,11 @@ function openModal() {
 }
   function closeModal() {
     //Fermer la modale
+    console.log("toto")
     const close = document.getElementById('modal')
-    close.addEventListener('click', function (event) {
-      event.preventDefault();
       modal.setAttribute('style', 'display:none')
       modal.setAttribute('aria-hidden', 'true');
       modal.removeAttribute('aria-modal')
-    })
-  }
+      console.log("toto2")
+    }
+  
