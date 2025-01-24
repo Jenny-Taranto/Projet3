@@ -118,7 +118,7 @@ function openModal() {
     })
     });
 
-    //Fermer la modale
+    //Fermer la modale avec un clic en dehors
     modal.addEventListener('click', function (event) {
       if (event.target === modal) {
         event.stopPropagation()
@@ -127,6 +127,14 @@ function openModal() {
         modal.removeAttribute('aria-modal')
       }
       });
+
+    //Fermer la modale avec un clic sur la croix
+    document.getElementById('cross').addEventListener('click', function (event) {
+        event.stopPropagation()
+        modal.setAttribute('style', 'display:none')
+        modal.setAttribute('aria-hidden', 'true');
+        modal.removeAttribute('aria-modal')
+    })
   }
 
 
@@ -134,15 +142,48 @@ function openModal() {
   async function travauxModal() {
     const reponseTravaux = await fetch("http://localhost:5678/api/works");
     const travauxModal = await reponseTravaux.json();
-    console.log(travauxModal)
 
     const modalContent = document.getElementById('modal-content');
     modalContent.innerHTML = ''; // Réinitialise la galerie avant d'ajouter les nouveaux travaux
-  
+
+  //Création et intégration des éléments
     for (let i = 0; i < travauxModal.length; i++) {
+      const elementContainer = document.createElement('div');
       const elementModal = document.createElement('img');
       elementModal.src = travauxModal[i].imageUrl;
-  
-      modalContent.appendChild(elementModal);
+      const iconLink = document.createElement('a');
+      const iconElementModal = document.createElement('i');
+      iconElementModal.setAttribute('class', 'fa-solid fa-trash-can');
+      iconElementModal.dataset.id = travauxModal[i].id; //Associe l'id du travail à l'icône correspondante
+
+    //Supression
+      iconElementModal.addEventListener('click', async function (event) {
+      event.preventDefault();
+
+      const travailId = this.dataset.id; //this.dataset.id = icône sur laquelle on clique + son id pour éviter d'écrire une ligne pour chaque icône
+
+      //Requête au serveur pour supprimer un travail
+      const response = await fetch(`http://localhost:5678/api/works/${travailId}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${sessionStorage.getItem('token')}`,
+        },
+      });
+
+      if (response.ok) {
+        // Supprime visuellement l'élément
+        elementContainer.remove(); //fonction qui supprime totalement l'objet cible du code HTML et actualise l'affichage sans recharger la page
+        console.log(`Travail ${travailId} supprimé.`);
+      } else {
+        console.error("Erreur lors de la suppression du travail.");
+      }
+      })
+
+      elementContainer.appendChild(elementModal);
+      elementContainer.appendChild(iconLink);
+      iconLink.appendChild(iconElementModal);
+      modalContent.appendChild(elementContainer);
+
     }
+  
   }
