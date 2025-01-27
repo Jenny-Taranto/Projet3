@@ -105,6 +105,7 @@ function openModal() {
 
     // Sélection de la modale
     const modal = document.getElementById('modal');
+    const modalAjouter = document.querySelector('.modal-ajouter-photo')
 
     // Gestion des évènements
     modeModifier.addEventListener('click', function (event) {
@@ -112,9 +113,11 @@ function openModal() {
       modal.removeAttribute('style')
       modal.setAttribute('aria-hidden', 'false');
       modal.setAttribute('aria-modal', 'true')
+      modalAjouter.setAttribute('style', 'display:none')
 
     //Afficher les travaux dans la modale
     travauxModal()
+    modal2()
     })
     });
 
@@ -135,7 +138,53 @@ function openModal() {
         modal.setAttribute('aria-hidden', 'true');
         modal.removeAttribute('aria-modal')
     })
-  }
+    //Fermer la modale avec un clic sur la croix de la page 2
+    document.getElementById('close-modal-2').addEventListener('click', function (event) {
+      event.stopPropagation()
+      modal.setAttribute('style', 'display:none')
+      modal.setAttribute('aria-hidden', 'true');
+      modal.removeAttribute('aria-modal')
+  })
+
+    //Retour
+    document.getElementById('arrow-return').addEventListener('click', function(event) {
+      event.stopPropagation()
+      const modal1 = document.querySelector('.edit-modal')
+      const modal2 = document.querySelector('.modal-ajouter-photo')
+      modal2.setAttribute('style', 'display:none')
+      modal1.removeAttribute('style')
+    })
+
+}
+
+function modal2() {
+  //Afficher modal page 2
+  const afficherModal2 = document.querySelector('.btn-modal-add')
+  afficherModal2.addEventListener('click', function(event) {
+    const modal1 = document.querySelector('.edit-modal')
+    modal1.setAttribute('style', 'display:none')
+    const croix = document.getElementById('cross')
+    croix.setAttribute('style', 'display:none')
+    const modal2 = document.querySelector('.modal-ajouter-photo')
+    modal2.removeAttribute('style')
+  })
+
+  //Afficher les catégories dans la balise select
+categoriesModal()
+}
+
+async function categoriesModal () {
+  const reponseCategories = await fetch("http://localhost:5678/api/categories");
+  const categoriesModal = await reponseCategories.json();
+  const select = document.querySelector('.form-titre-categorie select')
+
+  select.addEventListener('click', function(event) {
+    for(let i = 0 ; i < categoriesModal[i] ; i++) {
+      document.createElement('option');
+      select.appendChild(option[i])
+    }
+})
+}
 
 
 //Fonction qui affiche les travaux dans la modale
@@ -167,7 +216,7 @@ function openModal() {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${sessionStorage.getItem('token')}`,
-        },
+        }, 
       });
 
       if (response.ok) {

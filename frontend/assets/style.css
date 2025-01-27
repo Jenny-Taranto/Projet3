@@ -93,11 +93,13 @@ body {
 }
 
 .modal-wrapper {
+	box-sizing:border-box;
 	background-color: white;
 	display: flex;
 	flex-direction: column;
 	align-self: center;
-	width : 630px;
+	width : 90%;
+	max-width: 630px;
 	height: auto;
 	border-radius: 10px;
 	padding: 40px 120px 40px 120px;
@@ -105,11 +107,62 @@ body {
 	gap: 10px
 }
 
+.edit-modal {
+	display: flex;
+	flex-direction: column;
+}
+
 .modal-wrapper h3 {
 	color: black;
 	align-self: center;
-	margin-top: 50px;
+	margin-top: 30px;
 	margin-bottom: 40px;
+}
+
+.modal-ajouter-photo {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.fa-image {
+	color: #B9C5CC;
+	font-size: 60px
+}
+
+.form-ajouter-photo {
+	width: 100%
+}
+
+.encadrement-ajouter {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	background-color: #E8F1F6;
+	height: 170px;
+	border-radius: 3px;
+	gap: 5px;
+}
+
+.encadrement-ajouter p {
+	font-size: 10px;
+}
+
+.form-titre-categorie input, .form-titre-categorie select {
+	height: 50px;
+	font-size: 1.2em;
+	border: none;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+}
+
+.fa-arrow-left {
+	font-size: 24px;
+	align-self: flex-start;
+	color: black;
+	position: absolute;
+	top: 40px;
+	left: 40px;
 }
 
 .fa-xmark {
@@ -119,6 +172,42 @@ body {
 	top: 40px;
 	right: 40px;
 	color: black
+}
+
+.btn-photo {
+	background-color: #CBD6DC;
+	border-radius: 50px;
+	color: #306685;
+	font-size: 14px;
+	font-family: 'Work Sans';
+	font-weight: medium;
+	border-style: none;
+	padding: 0 30px 0 30px;
+	height: 36px;
+}
+
+.btn-photo:active {
+	background-color: #A7A7A7
+}
+
+.form-titre-categorie {
+	display: flex;
+	flex-direction: column;
+	padding: 30px 0 0 0;
+	gap: 10px;
+}
+
+#submit-photo {
+	margin: 0;
+	align-self: center;
+	font-family:  'Syne';
+	font-weight: bold;
+	font-size: 14px;
+	height: 36px;
+}
+
+#submit-photo:active {
+	background-color: #A7A7A7
 }
 
 a:active {
@@ -147,16 +236,17 @@ a:active {
 
 .modal-content div a {
 	position: absolute;
-	top: 10px;
-    right: 10px;
+	top: 5px;
+    right: 5px;
 	cursor: pointer;
 	background-color: black;
 	border-radius: 4px;
-	padding: 5px;
+	padding: 2px 4px 2px 4px;
 }
 
 .modal-content div i {
 	color: white;
+	font-size: 10px;
 }
 
 hr {
