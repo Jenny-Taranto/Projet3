@@ -184,10 +184,18 @@ body {
 	border-style: none;
 	padding: 0 30px 0 30px;
 	height: 36px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
+
 
 .btn-photo:active {
 	background-color: #A7A7A7
+}
+
+.encadrement-ajouter img {
+	height: 170px;
 }
 
 .form-titre-categorie {
