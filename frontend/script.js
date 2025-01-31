@@ -228,6 +228,7 @@ async function travauxModal() {
 function modal2() {
   const afficherModal2 = document.querySelector('.btn-modal-add')
   afficherModal2.addEventListener('click', function (event) {
+    event.preventDefault();
     const modal1 = document.querySelector('.edit-modal')
     modal1.setAttribute('style', 'display:none')
     const croix = document.getElementById('cross')
@@ -239,6 +240,7 @@ function modal2() {
   //Ajout photo
   const btnAjoutPhoto = document.getElementById('input-photo')
   btnAjoutPhoto.addEventListener('change', function (event) {
+    event.preventDefault();
 
     const icone = document.querySelector('.encadrement-ajouter i')
     icone.setAttribute('style', 'display:none')
@@ -299,8 +301,8 @@ async function formValider() {
       const formData = new FormData();
       const imageFile = image.files[0];  // Récupère le fichier sélectionné
       formData.append('image', imageFile);    // Ajoute le fichier à FormData
-      formData.append('title', title);        // Ajoute le titre
-      formData.append('category', category);  // Ajoute la catégorie
+      formData.append('title', title);
+      formData.append('category', category);
 
       // Requête POST
         const response = await fetch("http://localhost:5678/api/works", {
@@ -328,7 +330,5 @@ logIn();
 logOut();
 recupererDonnees();
 ouvrirModal();
-travauxModal();
-modal2();
 categoriesModal();
 formValider();
