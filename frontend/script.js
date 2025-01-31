@@ -285,7 +285,6 @@ async function categoriesModal() {
 // Formulaire d'envoi
 async function formValider() {
   document.addEventListener('DOMContentLoaded', function () {
-
     //On récupère les infos à envoyer
     const form = document.getElementById('form-ajouter-photo')
     form.addEventListener('submit', async (event) => {
