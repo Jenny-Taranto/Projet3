@@ -1,0 +1,9 @@
+{
+    "compilerOptions": {
+      "module": "CommonJS",
+      "target": "ES6",
+      "allowJs": true,
+      "strictNullChecks": false,
+    },
+    "exclude": ["node_modules"]
+  }
