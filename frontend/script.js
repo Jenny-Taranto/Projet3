@@ -263,7 +263,6 @@ function modal2() {
     if (file) {
       nouvellePhoto.src = URL.createObjectURL(file); // Génère un aperçu de l'image sélectionnée
       photo.appendChild(nouvellePhoto);
-<<<<<<< HEAD
     }
   });
 }
@@ -286,12 +285,6 @@ async function categoriesModal() {
 // Formulaire d'envoi
 async function formValider() {
   document.addEventListener('DOMContentLoaded', function () {
-=======
-      }
-      });
-
-    
->>>>>>> 376489ded410541295168d8ec797b32831c7565b
     //On récupère les infos à envoyer
     const form = document.getElementById('form-ajouter-photo')
     form.addEventListener('submit', async (event) => {
@@ -318,7 +311,6 @@ async function formValider() {
         body: formData
         })
 
-<<<<<<< HEAD
       if (response.ok) {
         console.log('Travail ajouté avec succès.');
         // Ici, tu pourrais mettre à jour l'affichage ou fermer la modale
@@ -328,14 +320,6 @@ async function formValider() {
     });
   })
 }
-=======
-        if (response.ok) {
-          const result = await response.json();
-          console.log('Connexion réussie :', result);
-    }})
-  
-  }
->>>>>>> 376489ded410541295168d8ec797b32831c7565b
 
 
 
