@@ -8,20 +8,62 @@
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
 	<meta name="description" content="">
+
+	<script src="https://kit.fontawesome.com/a15c888155.js" crossorigin="anonymous"></script>
 	<link rel="stylesheet" href="./assets/style.css">
-	<script src="script.js"></script>
 </head>
 <body>
 <header>
+	<!-- Modale -->
+	<p class="mode-edition" style="display:none"><i class="fa-regular fa-pen-to-square"></i>Mode édition
+		<div id="modal" class="modal" aria-hidden="true" role="dialog" aria-labelledby="Mode édition" style="display:none;">
+			<div class="modal-wrapper">
+				<div class="edit-modal">
+				<a href="#" id="cross"> <i class="fa-solid fa-xmark"></i></a>
+				<h3>Galerie photo</h3>
+					<div class="modal-content" id="modal-content">
+					</div>
+						<hr>
+							<button class="btn-modal-add">Ajouter une photo</button>
+				</div>
+				<div class="modal-ajouter-photo">
+				<div class="icons-container">
+					<a href="#" id="arrow-return"> <i class="fa-solid fa-arrow-left"></i></a><a href="#" id="close-modal-2"> <i class="fa-solid fa-xmark"></i></a>
+				</div>
+				<h3>Ajout photo</h3>
+					<form id="form-ajouter-photo" class="form-ajouter-photo" method="post" action="#">
+						<div class="encadrement-ajouter">
+							<i class="fa-regular fa-image"></i>
+								<label for="input-photo" class="btn-photo" id="nouvelle-image">+ Ajouter photo</label>
+									<input type="file" id="input-photo" class="btn-photo" accept="image/png, image/jpeg" style="display: none;">
+										<p>jpg. png : 4mo max</p>
+						</div>
+						<div class="form-titre-categorie">
+							<label for="form-titre">Titre</label>
+								<input type="text" id="form-titre" required>
+							<label for="form-categorie">Catégorie</label>
+								<select class="choix-categorie" id="choix-categorie" required>
+									<option></option>
+								</select>
+									<hr>
+										<input type="submit" id="submit-photo" value="Valider">
+						</div>
+					</form>
+			</div>
+			</div>
+		</div>
+	</p>
+	<div class="header">
 	<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
 	<nav>
 		<ul>
-			<li><a href="index.html">Projets</a></li>
+			<li><a href="index.html">projets</a></li>
 			<li>contact</li>
-			<li><a href="login.html">Login</a></li>
+			<li><a href="login.html" id="login">login</a><a href="index.html" id="logout" style="display:none">logout</a></li>
 			<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
 		</ul>
 	</nav>
+	</div>
 </header>
 <main>
 	<section id="introduction">
@@ -36,7 +78,7 @@
 		</article>
 	</section>
 	<section id="portfolio">
-		<h2>Mes Projets</h2>
+			<h2>Mes Projets	<a href='#' id='modifier'><span id="span-icone-h2" style="display:none"><i class="fa-regular fa-pen-to-square"></i>modifier</span></a></h2>
 			<div class="filterbar" id="filterbar">
 			</div>
 		<div class="gallery" id="gallery">
@@ -63,5 +105,7 @@
 		</ul>
 	</nav>
 </footer>
+
+<script src="script.js"></script>
 </body>
 </html>
