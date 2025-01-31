@@ -312,27 +312,13 @@ async function formValider() {
         })
 
         if (response.ok) {
-          const result = await response.json();
-          console.log('Connexion réussie :', result);
+         console.log('Travail ajouté avec succès.');
+        } else {
+          console.error('Erreur, travail non ajouté.');
         }
       });
     })
   }
-
-
-  // Génère la sélection des catégories pour le formulaire d'envoi
-  async function categoriesModal () {
-    const reponseCategories = await fetch("http://localhost:5678/api/categories");
-    const categoriesModal = await reponseCategories.json();
-    const select = document.querySelector('.form-titre-categorie select')
-
-    for (let i = 0; i < categoriesModal.length; i++) {
-      const option = document.createElement('option')
-      option.innerText = categoriesModal[i].name;
-      select.appendChild(option)
-    }
-  }
-
 
 
 
@@ -345,3 +331,4 @@ ouvrirModal();
 travauxModal();
 modal2();
 categoriesModal();
+formValider();
