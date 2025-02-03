@@ -46,9 +46,6 @@ async function recupererDonnees() {
   genererCategories(categories, travaux); // On passe aussi les travaux pour filtrer
 }
 
-
-
-
 // Génération des travaux
 function afficherTravaux(travaux) {
   const gallery = document.getElementById('gallery');
@@ -174,11 +171,12 @@ function ouvrirModal() {
 
 //Affiche les travaux dans la modale
 async function travauxModal() {
-  const reponseTravaux = await fetch("http://localhost:5678/api/works");
-  const travauxModal = await reponseTravaux.json();
 
   const modalContent = document.getElementById('modal-content');
   modalContent.innerHTML = ''; // Réinitialise la galerie avant d'ajouter les nouveaux travaux
+
+  const reponseTravaux = await fetch("http://localhost:5678/api/works");
+  const travauxModal = await reponseTravaux.json();
 
   //Création et intégration des éléments
   for (let i = 0; i < travauxModal.length; i++) {
@@ -207,6 +205,10 @@ async function travauxModal() {
       if (response.ok) {
         // Supprime visuellement l'élément
         elementContainer.remove(); //fonction qui supprime totalement l'objet cible du code HTML et actualise l'affichage sans recharger la page
+        const closeModal = document.getElementById('modal');
+        closeModal.setAttribute('style', 'display:none');
+        closeModal.setAttribute('aria-hidden', 'true');
+        recupererDonnees();
         console.log(`Travail ${travailId} supprimé.`);
       } else {
         console.error("Erreur lors de la suppression du travail.");
@@ -261,15 +263,31 @@ function modal2() {
     const nouvellePhoto = document.createElement('img');
     // @ts-ignore
     const file = event.target.files[0];
+    const inputImg = document.getElementById('input-photo')
+    const imgMaxSize = 4 * 1024 * 1024;
 
-    if (file) {
+    //Vérification de la taille du fichier
+    if(inputImg.files[0].size > imgMaxSize) {
+      alert('Le fichier est trop volumineux.')
+      document.getElementById('input-photo').value = '';
+      const icone = document.querySelector('.encadrement-ajouter i')
+      icone.removeAttribute('style')
+      const label = document.getElementById('nouvelle-image')
+      label.removeAttribute('style')
+      const paragraphe = document.querySelector('.encadrement-ajouter p')
+      paragraphe.removeAttribute('style')
+    }
+
+    else {
       nouvellePhoto.src = URL.createObjectURL(file); // Génère un aperçu de l'image sélectionnée
       photo.appendChild(nouvellePhoto);
     }
+
+
   });
 }
 
-// Génère la séléction des catégories pour le formulaire d'envoi
+// Génère la sélection des catégories pour le formulaire d'envoi
 async function categoriesModal() {
   const reponseCategories = await fetch("http://localhost:5678/api/categories");
   const categoriesModal = await reponseCategories.json();
@@ -315,8 +333,13 @@ async function formValider() {
 
         if (response.ok) {
          console.log('Travail ajouté avec succès.');
+         const closeModal = document.getElementById('modal');
+         closeModal.setAttribute('style', 'display:none');
+         closeModal.setAttribute('aria-hidden', 'true');
+          recupererDonnees();
+          document.getElementById('modal-content').innerHTML = '';
         } else {
-          console.error('Erreur, travail non ajouté.');
+          alert('Erreur, travail non ajouté.');
         }
       });
     })

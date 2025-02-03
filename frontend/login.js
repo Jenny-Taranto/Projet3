@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const result = await response.json();
             console.log('Connexion réussie :', result);
             sessionStorage.setItem("token", result.token) // Ajoute le token généré dans le sessionStorage
-            window.location.href = "/FrontEnd/index.html" // Redirige en cas de succès de la connexion
+            window.location.href = "/" // Redirige en cas de succès de la connexion
         } else {
             const errorData = await response.json();
             console.error('Erreur lors de la connexion :', errorData.message);
