@@ -115,6 +115,7 @@ function ouvrirModal() {
 
     // Sélection de la modale
     const modalAjouter = document.querySelector('.modal-ajouter-photo')
+    const modalEditer = document.querySelector('.edit-modal')
 
     // Afficher modale
     modeModifier.addEventListener('click', function (event) {
@@ -123,6 +124,8 @@ function ouvrirModal() {
       modal.setAttribute('aria-hidden', 'false');
       modal.setAttribute('aria-modal', 'true')
       modalAjouter.setAttribute('style', 'display:none')
+      modalEditer.removeAttribute('style');
+
 
       //Afficher les travaux dans la modale
       travauxModal()
@@ -268,7 +271,7 @@ function modal2() {
 
     //Vérification de la taille du fichier
     if(inputImg.files[0].size > imgMaxSize) {
-      alert('Le fichier est trop volumineux.')
+
       document.getElementById('input-photo').value = '';
       const icone = document.querySelector('.encadrement-ajouter i')
       icone.removeAttribute('style')
@@ -276,6 +279,7 @@ function modal2() {
       label.removeAttribute('style')
       const paragraphe = document.querySelector('.encadrement-ajouter p')
       paragraphe.removeAttribute('style')
+      alert('Le fichier est trop volumineux.')
     }
 
     else {
