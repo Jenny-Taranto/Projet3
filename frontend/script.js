@@ -1,9 +1,10 @@
-//Se connecter et entrer en mode édition
-function verifyAuthenticationStatus() {
+//Cette fonction gère l'affichage de la page en fonction de la connexion (ou non) de l'utilisateur
+
+function verifierIdentificationStatut() {
   document.addEventListener('DOMContentLoaded', function () {
-    // Si token présent alors afficher admin-mode
+
     if (sessionStorage.getItem('token') != null) {
-      displayAdminMode()
+      entrerModeEdition()
     }
 
     document.getElementById('logout').addEventListener('click', function (event) {
@@ -12,13 +13,16 @@ function verifyAuthenticationStatus() {
   })
 }
 
-function displayAdminMode() {
+
+//Cette fonction affiche le mode édition en cas de connexion de l'utilisateur
+
+function entrerModeEdition() {
   const adminModeHeader = document.querySelector('.mode-edition')
   adminModeHeader.removeAttribute('style')
-  //Même chose à faire pour le modifier du titre Mes projets
+
   const adminModeTitle = document.getElementById('span-icone-h2')
   adminModeTitle.removeAttribute('style')
-  //Remplacer le lien login par logout
+
   const login = document.getElementById('login')
   login.setAttribute('style', 'display:none')
   const logout = document.getElementById('logout')
@@ -26,27 +30,29 @@ function displayAdminMode() {
 }
 
 
-// Récupération des données
-/**
- * Appel du backend pour récupérer les projets et les catégories
- * 
- * La fonction afficherTravaux s'occupe de générer les travaux sur la page
- */
-async function recupererDonneesWorksEtCategories() {
+
+
+
+// Cette fonction récupère les données des travaux et des catégories avec une requête serveur
+
+async function recupererTravauxEtCategories() {
   const reponseTravaux = await fetch("http://localhost:5678/api/works");
   const travaux = await reponseTravaux.json();
 
   const reponseCategories = await fetch("http://localhost:5678/api/categories");
   const categories = await reponseCategories.json();
 
-  afficherTravaux(travaux);
-  genererCategories(categories, travaux); // On passe aussi les travaux pour filtrer
+  genererTravaux(travaux);
+  gererBarreDesCategories(categories, travaux); // On passe aussi les travaux pour filtrer
 }
 
-// Génération des travaux
-function afficherTravaux(travaux) {
+
+
+//Cette fonction génère l'affichage des travaux du portfolio
+
+function genererTravaux(travaux) {
   const gallery = document.getElementById('gallery');
-  gallery.innerHTML = ''; // Réinitialise la galerie avant d'ajouter les nouveaux travaux
+  gallery.innerHTML = '';
 
   for (let i = 0; i < travaux.length; i++) {
     const elementTravail = document.createElement('figure');
@@ -63,53 +69,50 @@ function afficherTravaux(travaux) {
 }
 
 
-// Génération des catégories
-function genererCategories(categories, travaux) {
-  const barreDesCategories = document.getElementById('filterbar');
-  barreDesCategories.innerHTML = ''; // Réinitialise la barre des catégories
+//Cette fonction génère la barre des catégories et gère son filtrage
 
-  // Bouton "Tous"
+function gererBarreDesCategories(categories, travaux) {
+  const barreDesCategories = document.getElementById('filterbar');
+  barreDesCategories.innerHTML = '';
+
   const btnTous = document.createElement('button');
   btnTous.innerText = 'Tous';
   btnTous.dataset.id = 'Tous';
   barreDesCategories.appendChild(btnTous);
 
-  // Ajout d'un event listener pour afficher tous les travaux
-  btnTous.addEventListener('click', () => afficherTravaux(travaux));
+  btnTous.addEventListener('click', () => genererTravaux(travaux));
 
-  // Boutons pour chaque catégorie
+
+
   for (let i = 0; i < categories.length; i++) {
     const btn = document.createElement('button');
     btn.innerText = categories[i].name;
-    btn.dataset.id = categories[i].id; // Utilise l'ID unique de la catégorie
+    btn.dataset.id = categories[i].id;
 
-    // Ajout d'un event listener pour filtrer les travaux
+
     btn.addEventListener('click', () => {
       const travauxFiltres = travaux.filter(
         (travail) => travail.categoryId === categories[i].id
       );
-      afficherTravaux(travauxFiltres);
+      genererTravaux(travauxFiltres);
     });
 
     barreDesCategories.appendChild(btn);
   }
 }
 
-console.log("token", sessionStorage.getItem("token"))
 
 
-//Ouvrir la modale
-function gererModales() {
+//Cette fonction affiche la modale, appelle sa fermeture et gère le retour arrière
+
+function gererModale() {
   const modal = document.getElementById('modal');
   document.addEventListener('DOMContentLoaded', function () {
-    // Sélection du lien "mode-edition" et du lien 'modifier'
-    const modeModifier = document.getElementById('modifier');
 
-    // Sélection de la modale
+    const modeModifier = document.getElementById('modifier');
     const modalAjouter = document.querySelector('.modal-ajouter-photo')
     const modalEditer = document.querySelector('.edit-modal')
 
-    // Afficher modale
     modeModifier.addEventListener('click', function (event) {
       event.preventDefault();
       modal.removeAttribute('style')
@@ -118,30 +121,26 @@ function gererModales() {
       modalAjouter.setAttribute('style', 'display:none')
       modalEditer.removeAttribute('style');
 
-
-      //Afficher les travaux dans la modale
-      afficherTravauxModal()
-      gererModaleAjout()
+      recupererTravauxModale()
+      gererAjoutTravauxModal()
     })
   });
 
   //Fermer la modale avec un clic en dehors
   modal.addEventListener('click', function (event) {
     if (event.target === modal) {
-      closeModal(event, modal)
+      fermerModal(event, modal)
     }
   });
 
-  //Fermer la modale avec un clic sur la croix
   document.getElementById('cross').addEventListener('click', function (event) {
-    closeModal(event, modal)
-  })
-  //Fermer la modale avec un clic sur la croix de la page 2
-  document.getElementById('close-modal-2').addEventListener('click', function (event) {
-    closeModal(event, modal)
+    fermerModal(event, modal)
   })
 
-  //Retour
+  document.getElementById('close-modal-2').addEventListener('click', function (event) {
+    fermerModal(event, modal)
+  })
+
   document.getElementById('arrow-return').addEventListener('click', function (event) {
     event.stopPropagation()
     const modal1 = document.querySelector('.edit-modal')
@@ -153,25 +152,18 @@ function gererModales() {
 }
 
 
-function closeModal(event, modal) {
-  event.stopPropagation()
-  modal.setAttribute('style', 'display:none')
-  modal.setAttribute('aria-hidden', 'true');
-  modal.removeAttribute('aria-modal')
-}
 
 
+//Cette fonction récupère les données des travaux et les affiche dans la modale, et gère la suppression d'un travail
 
-//Affiche les travaux dans la modale
-async function afficherTravauxModal() {
+async function recupererTravauxModale() {
 
   const modalContent = document.getElementById('modal-content');
-  modalContent.innerHTML = ''; // Réinitialise la galerie avant d'ajouter les nouveaux travaux
+  modalContent.innerHTML = '';
 
   const reponseTravaux = await fetch("http://localhost:5678/api/works");
   const travauxModal = await reponseTravaux.json();
 
-  //Création et intégration des éléments
   for (let i = 0; i < travauxModal.length; i++) {
     const elementContainer = document.createElement('div');
     const elementModal = document.createElement('img');
@@ -184,10 +176,8 @@ async function afficherTravauxModal() {
     //Supression
     iconElementModal.addEventListener('click', async function (event) {
       event.preventDefault();
-
       const travailId = this.dataset.id; //this.dataset.id = icône sur laquelle on clique + son id pour éviter d'écrire une ligne pour chaque icône
 
-      //Requête au serveur pour supprimer un travail
       const response = await fetch(`http://localhost:5678/api/works/${travailId}`, {
         method: 'DELETE',
         headers: {
@@ -196,15 +186,14 @@ async function afficherTravauxModal() {
       });
 
       if (response.ok) {
-        // Supprime visuellement l'élément
-        elementContainer.remove(); //fonction qui supprime totalement l'objet cible du code HTML et actualise l'affichage sans recharger la page
+        elementContainer.remove();
         const closeModal = document.getElementById('modal');
         closeModal.setAttribute('style', 'display:none');
         closeModal.setAttribute('aria-hidden', 'true');
-        recupererDonneesWorksEtCategories();
+        recupererTravauxEtCategories();
         console.log(`Travail ${travailId} supprimé.`);
       } else {
-        console.error("Erreur lors de la suppression du travail.");
+        alert("Erreur lors de la suppression du travail.");
       }
     })
 
@@ -219,8 +208,9 @@ async function afficherTravauxModal() {
 
 
 
-//Afficher modal page 2
-function gererModaleAjout() {
+//Cette fonction affiche le formulaire d'ajout d'un travail et gère la sélection d'une image
+
+function gererAjoutTravauxModal() {
   const afficherModal2 = document.querySelector('.btn-modal-add')
   afficherModal2.addEventListener('click', function (event) {
     event.preventDefault();
@@ -237,12 +227,12 @@ function gererModaleAjout() {
   btnAjoutPhoto.addEventListener('change', function (event) {
     event.preventDefault();
 
-    const icone = document.querySelector('.encadrement-ajouter i')
-    icone.setAttribute('style', 'display:none')
+    const icon = document.querySelector('.encadrement-ajouter i')
+    icon.setAttribute('style', 'display:none')
     const label = document.getElementById('nouvelle-image')
     label.setAttribute('style', 'display:none')
-    const paragraphe = document.querySelector('.encadrement-ajouter p')
-    paragraphe.setAttribute('style', 'display:none')
+    const paragraph = document.querySelector('.encadrement-ajouter p')
+    paragraph.setAttribute('style', 'display:none')
 
     const photo = document.querySelector('.encadrement-ajouter')
 
@@ -252,14 +242,11 @@ function gererModaleAjout() {
       image.remove(); // Supprime l'image existante avant d'en ajouter une nouvelle
     }
 
-    // Crée et ajoute la nouvelle image
     const nouvellePhoto = document.createElement('img');
-    // @ts-ignore
     const file = event.target.files[0];
     const inputImg = document.getElementById('input-photo')
     const imgMaxSize = 4 * 1024 * 1024;
 
-    //Vérification de la taille du fichier
     if(inputImg.files[0].size > imgMaxSize) {
 
       document.getElementById('input-photo').value = '';
@@ -281,8 +268,12 @@ function gererModaleAjout() {
   });
 }
 
-// Génère la sélection des catégories pour le formulaire d'envoi
-async function categoriesModal() {
+
+
+
+//Cette fonction génère la liste des catégories lors de la sélection de celles-ci pour l'ajout d'un travail
+
+async function genererSelectionCategoriesModale() {
   const reponseCategories = await fetch("http://localhost:5678/api/categories");
   const categoriesModal = await reponseCategories.json();
   const select = document.querySelector('.form-titre-categorie select')
@@ -296,8 +287,10 @@ async function categoriesModal() {
 }
 
 
-// Formulaire d'envoi
-async function formValider() {
+
+//Cette fonction gère l'envoi des données du formulaire
+
+async function gererFormulaireAjoutTravaux() {
   document.addEventListener('DOMContentLoaded', function () {
     //On récupère les infos à envoyer
     const form = document.getElementById('form-ajouter-photo')
@@ -309,42 +302,51 @@ async function formValider() {
       const title = titleInput.value.trim();
       const category = document.getElementById('choix-categorie').value;
 
-      // Créer un objet FormData pour envoyer l'image et les autres données
       const formData = new FormData();
-      const imageFile = image.files[0];  // Récupère le fichier sélectionné
-      formData.append('image', imageFile);    // Ajoute le fichier à FormData
+      const imageFile = image.files[0];
+      formData.append('image', imageFile);
       formData.append('title', title);
       formData.append('category', category);
 
-      // Requête POST
-        const response = await fetch("http://localhost:5678/api/works", {
-        method: "POST",
-        headers: {
-          'Authorization': `Bearer ${sessionStorage.getItem('token')}`,
-        },
-        body: formData
-        })
+      const response = await fetch("http://localhost:5678/api/works", {
+      method: "POST",
+      headers: {
+        'Authorization': `Bearer ${sessionStorage.getItem('token')}`,
+      },
+      body: formData
+      })
 
-        if (response.ok) {
-         console.log('Travail ajouté avec succès.');
-         const closeModal = document.getElementById('modal');
-         closeModal.setAttribute('style', 'display:none');
-         closeModal.setAttribute('aria-hidden', 'true');
-          recupererDonneesWorksEtCategories();
-          document.getElementById('modal-content').innerHTML = '';
-        } else {
-          alert('Erreur, travail non ajouté.');
-        }
+      if (response.ok) {
+        console.log('Travail ajouté avec succès.');
+        const closeModal = document.getElementById('modal');
+        closeModal.setAttribute('style', 'display:none');
+        closeModal.setAttribute('aria-hidden', 'true');
+        recupererTravauxEtCategories();
+        document.getElementById('modal-content').innerHTML = '';
+      } else {
+        alert('Erreur, travail non ajouté.');
+      }
       });
     })
-  }
+}
 
 
 
 
+//Cette fonction ferme la modale
 
-verifyAuthenticationStatus();
-recupererDonneesWorksEtCategories();
-gererModales();
-categoriesModal();
-formValider();
+function fermerModal(event, modal) {
+  event.stopPropagation()
+  modal.setAttribute('style', 'display:none')
+  modal.setAttribute('aria-hidden', 'true');
+  modal.removeAttribute('aria-modal')
+}
+
+
+
+
+verifierIdentificationStatut();
+recupererTravauxEtCategories();
+gererModale();
+genererSelectionCategoriesModale();
+gererFormulaireAjoutTravaux();

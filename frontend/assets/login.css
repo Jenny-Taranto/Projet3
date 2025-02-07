@@ -1,3 +1,7 @@
+html {
+	width: 100%
+}
+
 body {
 	max-width: 1140px;
 	margin:auto;
@@ -6,12 +10,13 @@ body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+	width: 100%;
 }
 
 header {
 	display: flex;
 	justify-content: space-between;
-	margin: 50px 0
+	margin: 50px 0;
 }
 
 nav ul {
@@ -21,8 +26,8 @@ nav ul {
 }
 
 nav li {
-	padding: 0 20px;
-	font-size: 1.2em;
+	padding: 0 25px;
+	font-size: 16px;
 }
 
 nav ul a {
@@ -37,6 +42,7 @@ li:hover {
 	
 	color: #B1663C;
 }
+
 
 h1{
 	display: flex;
@@ -121,7 +127,13 @@ form input {
 footer {
 	display: flex;
 	justify-content: flex-end;
-    padding: 20px 0 20px 20px;
+    padding: 20px 140px 20px 0;
+	background-color: white;
+	width: 1200px;
+}
+
+a {
+	color: black
 }
 
 footer a {
