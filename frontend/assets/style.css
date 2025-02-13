@@ -3,19 +3,87 @@
    License: none (public domain)
 */
 
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed,
-figure, figcaption, footer, header, hgroup,
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
 	margin: 0;
 	padding: 0;
 	border: 0;
@@ -25,8 +93,17 @@ time, mark, audio, video {
 }
 
 /* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure,
-footer, header, hgroup, menu, nav, section {
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
 	display: block;
 }
 
@@ -34,16 +111,20 @@ body {
 	line-height: 1;
 }
 
-ol, ul {
+ol,
+ul {
 	list-style: none;
 }
 
-blockquote, q {
+blockquote,
+q {
 	quotes: none;
 }
 
-blockquote:before, blockquote:after,
-q:before, q:after {
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
 	content: '';
 	content: none;
 }
@@ -56,8 +137,8 @@ table {
 /** end reset css**/
 body {
 	max-width: 1140px;
-	margin:auto;
-	font-family: 'Work Sans' ;
+	margin: auto;
+	font-family: 'Work Sans';
 	font-size: 14px;
 }
 
@@ -70,7 +151,7 @@ body {
 .mode-edition {
 	height: 60px;
 	width: 100%;
-	background-color:black;
+	background-color: black;
 	color: white;
 	display: flex;
 	justify-content: center;
@@ -84,26 +165,27 @@ body {
 .modal {
 	display: flex;
 	justify-content: center;
-	position:fixed;
+	position: fixed;
 	top: 0;
 	left: 0;
-	width : 100%;
+	width: 100%;
 	height: 100%;
 	background: rgba(0, 0, 0, 0.5);
 }
 
 .modal-wrapper {
-	box-sizing:border-box;
+	box-sizing: border-box;
 	background-color: white;
 	display: flex;
 	flex-direction: column;
 	align-self: center;
-	width : 90%;
+	width: 90%;
 	max-width: 630px;
 	height: auto;
 	border-radius: 10px;
 	padding: 40px 120px 40px 120px;
-	position: relative; /*Pour placer la croix*/
+	position: relative;
+	/*Pour placer la croix*/
 	gap: 10px
 }
 
@@ -149,7 +231,8 @@ body {
 	font-size: 10px;
 }
 
-.form-titre-categorie input, .form-titre-categorie select {
+.form-titre-categorie input,
+.form-titre-categorie select {
 	height: 50px;
 	font-size: 1.2em;
 	border: none;
@@ -168,7 +251,8 @@ body {
 .fa-xmark {
 	font-size: 24px;
 	align-self: flex-end;
-	position: absolute; /*Pour placer la croix*/
+	position: absolute;
+	/*Pour placer la croix*/
 	top: 40px;
 	right: 40px;
 	color: black
@@ -208,7 +292,7 @@ body {
 #submit-photo {
 	margin: 0;
 	align-self: center;
-	font-family:  'Syne';
+	font-family: 'Syne';
 	font-weight: bold;
 	font-size: 14px;
 	height: 36px;
@@ -219,7 +303,7 @@ body {
 }
 
 a:active {
-	color:black
+	color: black
 }
 
 .modal-content {
@@ -245,7 +329,7 @@ a:active {
 .modal-content div a {
 	position: absolute;
 	top: 5px;
-    right: 5px;
+	right: 5px;
 	cursor: pointer;
 	background-color: black;
 	border-radius: 4px;
@@ -266,14 +350,14 @@ hr {
 .btn-modal-add {
 	height: 38px;
 	background-color: #1D6154;
-	border-color:#1D6154;
+	border-color: #1D6154;
 	border-style: solid;
 	border-width: 1px;
 	border-radius: 60px;
 	font-family: "Syne";
 	font-size: 14px;
 	font-weight: 700;
-	color:white;
+	color: white;
 	padding: 0 40px 0 40px;
 	min-width: 100px;
 	max-width: 235px;
@@ -288,7 +372,7 @@ section {
 	margin: 50px 0
 }
 
-h1{
+h1 {
 	display: flex;
 	flex-direction: column;
 	font-family: 'Syne';
@@ -297,13 +381,13 @@ h1{
 	color: #B1663C
 }
 
-h1 > span {
+h1>span {
 	font-family: 'Work Sans';
-	font-size:10px;
+	font-size: 10px;
 	letter-spacing: 0.1em;
 }
 
-h2{
+h2 {
 	font-family: 'Syne';
 	font-weight: 700;
 	font-size: 30px;
@@ -324,7 +408,7 @@ nav li {
 
 nav ul a {
 	text-decoration: none;
-	color:black;
+	color: black;
 }
 
 nav ul a:hover {
@@ -332,12 +416,12 @@ nav ul a:hover {
 }
 
 li:hover {
-	
+
 	color: #B1663C;
 }
 
 .only-admin {
-	display:none;
+	display: none;
 }
 
 #introduction {
@@ -377,7 +461,7 @@ li:hover {
 }
 
 #portfolio h2 a {
-		text-decoration: none;
+	text-decoration: none;
 }
 
 #portfolio h2 span {
@@ -403,14 +487,14 @@ li:hover {
 button {
 	height: 38px;
 	background-color: white;
-	border-color:#1D6154;
+	border-color: #1D6154;
 	border-style: solid;
 	border-width: 1px;
 	border-radius: 60px;
 	font-family: "Syne";
 	font-size: 16px;
 	font-weight: 700;
-	color:#1D6154;
+	color: #1D6154;
 	padding: 0 10px 0 10px;
 	min-width: 100px;
 }
@@ -437,17 +521,17 @@ button:focus {
 	margin: auto;
 }
 
-#contact > * {
+#contact>* {
 	text-align: center;
 }
 
-#contact h2{
+#contact h2 {
 	margin-bottom: 20px;
 }
 
 #contact form {
 	text-align: left;
-	margin-top:30px;
+	margin-top: 30px;
 	display: flex;
 	flex-direction: column;
 }
@@ -468,15 +552,15 @@ button:focus {
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
 
-input[type="submit"]{
+input[type="submit"] {
 	font-family: 'Syne';
 	font-weight: 700;
 	color: white;
 	background-color: #1D6154;
-	margin : 2em auto ;
+	margin: 2em auto;
 	width: 180px;
 	text-align: center;
-	border-radius: 60px ;
+	border-radius: 60px;
 }
 
 footer nav ul {
@@ -488,4 +572,8 @@ h3 {
 	font-family: 'Work Sans';
 	font-weight: 500;
 	font-size: 26px;
+}
+
+html {
+	scroll-behavior: auto;
 }
